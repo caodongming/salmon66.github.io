@@ -1,0 +1,773 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="##一、前言：为开发团队选择一款优秀的MVC框架是件难事儿，在众多可行的方案中决择需要很高的经验和水平。你的一个决定会影响团队未来的几年。要考虑方面太多：
+
+1、简单易用，以提高开发效率。使小部分的精力在框架上，大部分的精力放在业务上。
+2、性能优秀，这是一个最能吸引眼球的话题。
+3、尽量使用大众的框架（避免使用小众的、私有的框架），新招聘来的开发人员有一些这方面技术积累，减低人员流动再适应的影响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC学习笔记">
+<meta property="og:url" content="http://caodm.me/2017/01/12/SpringMVC.html/index.html">
+<meta property="og:site_name" content="Ben's blog">
+<meta property="og:description" content="##一、前言：为开发团队选择一款优秀的MVC框架是件难事儿，在众多可行的方案中决择需要很高的经验和水平。你的一个决定会影响团队未来的几年。要考虑方面太多：
+
+1、简单易用，以提高开发效率。使小部分的精力在框架上，大部分的精力放在业务上。
+2、性能优秀，这是一个最能吸引眼球的话题。
+3、尽量使用大众的框架（避免使用小众的、私有的框架），新招聘来的开发人员有一些这方面技术积累，减低人员流动再适应的影响">
+<meta property="og:image" content="http://caodm.me/img/20170112_2.png">
+<meta property="og:updated_time" content="2017-01-12T13:57:54.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC学习笔记">
+<meta name="twitter:description" content="##一、前言：为开发团队选择一款优秀的MVC框架是件难事儿，在众多可行的方案中决择需要很高的经验和水平。你的一个决定会影响团队未来的几年。要考虑方面太多：
+
+1、简单易用，以提高开发效率。使小部分的精力在框架上，大部分的精力放在业务上。
+2、性能优秀，这是一个最能吸引眼球的话题。
+3、尽量使用大众的框架（避免使用小众的、私有的框架），新招聘来的开发人员有一些这方面技术积累，减低人员流动再适应的影响">
+<meta name="twitter:image" content="http://caodm.me/img/20170112_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://caodm.me/2017/01/12/SpringMVC.html/"/>
+
+
+
+
+
+  <title> SpringMVC学习笔记 | Ben's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Ben's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">don't try so hard, the best things come when you least expect them to</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://caodm.me/2017/01/12/SpringMVC.html/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="caodm">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/1441308486715.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Ben's blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Ben's blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SpringMVC学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T19:58:00+08:00">
+                2017-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index">
+                    <span itemprop="name">Coding</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##一、前言：<br>为开发团队选择一款优秀的MVC框架是件难事儿，在众多可行的方案中决择需要很高的经验和水平。你的一个决定会影响团队未来的几年。要考虑方面太多：</p>
+<blockquote>
+<p>1、简单易用，以提高开发效率。使小部分的精力在框架上，大部分的精力放在业务上。</p>
+<p>2、性能优秀，这是一个最能吸引眼球的话题。</p>
+<p>3、尽量使用大众的框架（避免使用小众的、私有的框架），新招聘来的开发人员有一些这方面技术积累，减低人员流动再适应的影响。<a id="more"></a></p>
+</blockquote>
+<p>Spring MVC是当前最优秀的MVC框架，自从Spring 2.5版本发布后，由于支持注解配置，易用性有了大幅度的提高。Spring 3.0更加完善，实现了对Struts 2的超越。现在越来越多的开发团队选择了Spring MVC。</p>
+<p>Spring3 MVC的优点：</p>
+<blockquote>
+<p>1、Spring3 MVC使用简单，学习成本低。</p>
+<p>2、Spring3 MVC很容易就可以写出性能优秀的程序，Struts2要处处小心才可以写出性能优秀的程序（指MVC部分）</p>
+<p>3、Spring3 MVC的灵活是你无法想像的，Spring框架的扩展性有口皆碑，Spring3 MVC当然也不会落后，不会因使用了MVC框架而感到有任何的限制。</p>
+</blockquote>
+<p>##二、核心类与接口：</p>
+<p>DispatcherServlet   – 前置控制器</p>
+<p>HandlerMapping接口 – 处理请求的映射</p>
+<p>HandlerMapping接口的实现类：</p>
+<p>SimpleUrlHandlerMapping  通过配置文件，把一个URL映射到Controller</p>
+<p>DefaultAnnotationHandlerMapping  通过注解，把一个URL映射到Controller类上</p>
+<p>HandlerAdapter接口 – 处理请求的映射</p>
+<p>AnnotationMethodHandlerAdapter类，通过注解，把一个URL映射到Controller类的方法上</p>
+<p>Controller接口 – 控制器</p>
+<p>由于我们使用了@Controller注解，添加了@Controller注解注解的类就可以担任控制器（Action）的职责,所以我们并没有用到这个接口。</p>
+<p>HandlerInterceptor 接口–拦截器</p>
+<p>无图，我们自己实现这个接口，来完成拦截的器的工作。<br>ViewResolver接口的实现类</p>
+<p>UrlBasedViewResolver类 通过配置文件，把一个视图名交给到一个View来处理</p>
+<p>InternalResourceViewResolver类，比上面的类，加入了JSTL的支持</p>
+<p>View接口</p>
+<p>JstlView类</p>
+<p>LocalResolver接口</p>
+<p>HandlerExceptionResolver接口 –异常处理</p>
+<p>SimpleMappingExceptionResolver实现类</p>
+<p>##三、核心流程图</p>
+<blockquote>
+<p><img src="/img/20170112_2.png" alt="基本架构"></p>
+</blockquote>
+<p>##四、DispatcherServlet说明<br>使用Spring MVC,配置DispatcherServlet是第一步。</p>
+<p>DispatcherServlet是一个Servlet,所以可以配置多个DispatcherServlet。</p>
+<p>DispatcherServlet是前置控制器，配置在web.xml文件中的。拦截匹配的请求，Servlet拦截匹配规则要自已定义，把拦截下来的请求，依据某某规则分发到目标Controller(我们写的Action)来处理。</p>
+<pre><code>&lt;servlet&gt;
+&lt;servlet-name&gt;spring-Servlet&lt;/servlet-name&gt;
+&lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+&lt;init-param&gt;
+&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+&lt;param-value&gt;classpath:springmvc/servlet-context.xml&lt;/param-value&gt;
+&lt;/init-param&gt;
+&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+&lt;servlet-name&gt;spring-Servlet&lt;/servlet-name&gt;
+&lt;url-pattern&gt;*.mvc&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+&lt;servlet-name&gt;spring-Servlet&lt;/servlet-name&gt;
+&lt;url-pattern&gt;/rest/services/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p>在DispatcherServlet的初始化过程中，框架会在web应用的 WEB-INF文件夹下寻找名为[servlet-name]-servlet.xml 的配置文件，生成文件中定义的bean</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:jaxws=&quot;http://cxf.apache.org/jaxws&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd&quot;&gt;
+       &lt;!--
+              &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;&gt;
+              &lt;property name=&quot;jndiName&quot;&gt;&lt;value&gt;jdbc/customdb&lt;/value&gt;&lt;/property&gt;
+              &lt;/bean&gt;  --&gt;
+       &lt;context:annotation-config /&gt;
+       &lt;context:component-scan
+              base-package=&quot;com.ailk.*&quot; /&gt;--扫描的包名
+&lt;context:component-scan/&gt; 扫描指定的包中的类上的注解，常用的注解有：
+@Controller 声明Action组件
+@Service    声明Service组件    @Service(&quot;myMovieLister&quot;) 
+@Repository 声明Dao组件
+@Component   泛指组件, 当不好归类时. 
+@RequestMapping(&quot;/menu&quot;)  请求映射
+@Resource  用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name=&quot;beanName&quot;) 
+@Autowired 用于注入，(srping提供的) 默认按类型装配 
+@Transactional( rollbackFor={Exception.class}) 事务管理
+@ResponseBody
+@Scope(&quot;prototype&quot;)   设定bean的作用域
+</code></pre><p>##六、Spring中的拦截器</p>
+<pre><code>pring为我们提供了：
+org.springframework.web.servlet.HandlerInterceptor接口，
+org.springframework.web.servlet.handler.HandlerInterceptorAdapter适配器，
+实现这个接口或继承此类，可以非常方便的实现自己的拦截器。
+
+   有以下三个方法：
+
+   Action之前执行:
+   public boolean preHandle(HttpServletRequest request,
+   HttpServletResponse response, Object handler);
+
+   生成视图之前执行
+   public void postHandle(HttpServletRequest request,
+   HttpServletResponse response, Object handler,
+   ModelAndView modelAndView);
+
+   最后执行，可用于释放资源
+   public void afterCompletion(HttpServletRequest request,
+   HttpServletResponse response, Object handler, Exception ex)
+
+
+   分别实现预处理、后处理（调用了Service并返回ModelAndView，但未进行页面渲染）、返回处理（已经渲染了页面） 
+   在preHandle中，可以进行编码、安全控制等处理； 
+   在postHandle中，有机会修改ModelAndView； 
+   在afterCompletion中，可以根据ex是否为null判断是否发生了异常，进行日志记录。 
+参数中的Object handler是下一个拦截器。
+</code></pre><p>##七、转发重定向</p>
+<pre><code>可以通过redirect/forward:url方式转到另一个Action进行连续的处理。
+可以通过redirect:url 防止表单重复提交 。
+写法如下：
+return &quot;forward:/order/add&quot;;
+return &quot;redirect:/index.jsp&quot;;
+带参数重定向--RedirectAttributes
+用户保存或修改后，为了防止用户刷新浏览器(F5)导致表单重复提交，一般在保存或修改操作之后会redirect到一个结果页面（不是forward），同时携带参数，如操作成功的提示信息。因为是Redirect，Request里的attribute不会传递过去。Spring在3.1才提供了这个能力--RedirectAttributes。 反复按F5，操作成功的提示信息也不会再次出来（总共只出现一次），效果很理想。
+</code></pre><p>##八、Spring管理的bean<br>    1、servlet方式加载时<br>    <servlet><br>    <servlet-name>springMVC</servlet-name><br>    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class><br>    <init-param><br>    <param-name>contextConfigLocation</param-name><br>    <param-value>classpath*:/springMVC.xml</param-value><br>    </init-param><br>    <load-on-startup>1</load-on-startup><br>    </servlet><br>         spring容器放在ServletContext中的keyorg.springframework.web.servlet.FrameworkServlet.CONTEXT.springMVC<br>        注意后面的springMVC，是你的servlet-name配置的值，注意适时修改。<br>    2、listener方式加载时<br>        <context-param><br>          <param-name>contextConfigLocation</param-name><br>          <param-value>/WEB-INF/applicationContext</param-value><br>        </context-param><br>        <listener><br>          <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class><br>        </listener><br>    3、通用的方法来了，神器啊，前的  1、2两种方法并不通用，可以抛弃了。<br>    在配置文件中加入：<br>            <!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 --><br>            <bean class="com.xxxxx.SpringContextHolder" lazy-init="false"></bean></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/12/new-page.html/" rel="next" title="今日事，今日毕">
+                <i class="fa fa-chevron-left"></i> 今日事，今日毕
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/1441308486715.jpeg"
+               alt="caodm" />
+          <p class="site-author-name" itemprop="name">caodm</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">caodm</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
