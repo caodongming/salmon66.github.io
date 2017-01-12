@@ -84,20 +84,20 @@
 
 
 
-<meta name="description" content="学习">
+<meta name="description" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle到Mysql数据迁移工具介绍">
 <meta property="og:url" content="http://caodm.me/2017/01/11/new-page.html/index.html">
 <meta property="og:site_name" content="Ben's blog">
-<meta property="og:description" content="学习">
-<meta property="og:image" content="http://caodm.me/../../img/source/_posts/my-new-post.png">
-<meta property="og:image" content="http://caodm.me/../../img/source/_posts/my-new-post1.png">
-<meta property="og:image" content="http://caodm.me/../../img/source/_posts/my-new-post2.png">
-<meta property="og:updated_time" content="2017-01-12T02:29:38.318Z">
+<meta property="og:description" content="数据库">
+<meta property="og:image" content="http://caodm.me/img/my-new-post3.png">
+<meta property="og:image" content="http://caodm.me/img/my-new-post5.png">
+<meta property="og:image" content="http://caodm.me/img/my-new-post6.png">
+<meta property="og:updated_time" content="2017-01-12T13:10:39.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle到Mysql数据迁移工具介绍">
-<meta name="twitter:description" content="学习">
-<meta name="twitter:image" content="http://caodm.me/../../img/source/_posts/my-new-post.png">
+<meta name="twitter:description" content="数据库">
+<meta name="twitter:image" content="http://caodm.me/img/my-new-post3.png">
 
 
 
@@ -308,7 +308,7 @@
 
           
               <div class="post-description">
-                  学习
+                  数据库
               </div>
           
 
@@ -329,7 +329,7 @@
 <p>yugong（意译：愚公）项目是阿里的开源项目，该项目使用纯Java开发，主要作用是进行数据库迁移，目前该项目主要支持从oracle数据库向Mysql和DRDS数据库进行迁移</p>
 <p>08年左右，阿里巴巴开始尝试MySQL的相关研究，并开发了基于MySQL分库分表技术的相关产品，Cobar/TDDL(目前为阿里云DRDS产品)，解决了单机Oracle无法满足的扩展性问题，当时也掀起一股去IOE项目的浪潮，愚公这项目因此而诞生，其要解决的目标就是帮助用户完成从Oracle数据迁移到MySQL上，完成去IOE的第一步</p>
 <p>基本架构</p>
-<p><img src="../../img/source/_posts/my-new-post.png" alt="my-new-post"></p>
+<p><img src="/img/my-new-post3.png" alt="基本架构"></p>
 <p>一个Jvm Container对应多个实例(instance)，每个实例(instance)对应于一张表的迁移任务，一个实例(instance)分为三部分</p>
 <blockquote>
 <p>a. extractor (从源数据库上提取数据，可分为全量/增量实现)</p>
@@ -358,7 +358,7 @@
 <blockquote>
 <p>##迁移流程介绍</p>
 <p>整个数据迁移过程主要分为全量迁移和增量迁移两个部分。</p>
-<p><img src="../../img/source/_posts/my-new-post1.png" alt="my-new-post1"><br>迁移的大致过程如下：</p>
+<p><img src="/img/my-new-post5.png" alt="基本架构"><br>迁移的大致过程如下：</p>
 <p>1.增量数据收集 (创建oracle表的增量物化视图)</p>
 <p>2.进行全量复制</p>
 <p>3.进行增量复制 (可并行进行数据校验)</p>
@@ -371,7 +371,9 @@
 <p>yugong.applier.*  // 这段定义目标导入的配置信息</p>
 <p>yugong.applier.concurrent.*  // 这里有三个配置，基本和yugong.extractor.用法一样；<br>影响导入性能的几大要素：<br>数据库配置，相关的配置有，缓存的大小，是否开启二进制日志，消息包大小的限制；<br>表数据的插入顺序，如果你的数据插入顺序是顺序导入的，性能优于无序插入；<br>对于数据量大的表，导入之前不要建任何索引，数据导入完成后，在创建索引或主键的效率，远远优于提前创建索引；</p>
 <p>测试数据</p>
-<p><img src="../../img/source/_posts/my-new-post2.png" alt="my-new-post2"> </p>
+<blockquote>
+<p><img src="/img/my-new-post6.png" alt="基本架构"></p>
+</blockquote>
 </blockquote>
 
       
@@ -481,11 +483,18 @@
           
 
           
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
